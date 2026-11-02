@@ -145,9 +145,9 @@ export const TIERS = {
 export const TIER_ORDER = ['close', 'near', 'low', 'insult'];
 
 export const RANKS = [
-  { min: 0.42, name: '商店街の悪夢', note: '翌日、屋台通りに君の似顔絵が貼られた。' },
-  { min: 0.37, name: '値切り職人', note: 'ケマルの電卓に、君の名前が登録された。' },
-  { min: 0.32, name: '腕利きの常連', note: 'ヨシコにおかずを1品もらえる顔になった。' },
-  { min: 0.26, name: 'ふつうのお客さん', note: 'いい買い物だった。たぶん。' },
-  { min: 0, name: '観光客価格', note: 'ハサンが弟に君の話をしている。' },
+  { min: 0.42, slug: 'nightmare', name: '商店街の悪夢', note: '翌日、屋台通りに君の似顔絵が貼られた。' },
+  { min: 0.37, slug: 'artisan', name: '値切り職人', note: 'ケマルの電卓に、君の名前が登録された。' },
+  { min: 0.32, slug: 'regular', name: '腕利きの常連', note: 'ヨシコにおかずを1品もらえる顔になった。' },
+  { min: 0.26, slug: 'customer', name: 'ふつうのお客さん', note: 'いい買い物だった。たぶん。' },
+  { min: 0, slug: 'tourist', name: '観光客価格', note: 'ハサンが弟に君の話をしている。' },
 ];

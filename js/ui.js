@@ -19,6 +19,14 @@ let shop = null;
 let hand = [];
 let busy = false;
 let warned = false;
+let shareUrl = '';
+let shareText = '';
+
+// スマホはOSの共有シートを使う。X本体の投稿画面へ直接渡せるので、
+// リンク経由でアプリ内ブラウザが開く問題を避けられる。
+function useShareSheet() {
+  return matchMedia('(pointer: coarse)').matches && typeof navigator.share === 'function';
+}
 
 function show(id) {
   ['title', 'game', 'receipt'].forEach((s) => { $(s).hidden = s !== id; });
@@ -358,11 +366,13 @@ function showReceipt() {
   $('rRank').textContent = title;
   $('rNote').textContent = z.clear ? z.rank.note : '全員に配れなかったので称号はお預け。公園の空気が重い。';
   if (z.clear && z.saved > readBest()) saveBest(z.saved);
-  const url = location.href.split('?')[0];
-  const text = z.clear
+  // 称号ごとの共有ページを貼ると、Xではそのカード画像付きで表示される
+  shareUrl = new URL(`share/${z.clear ? z.rank.slug : 'hungry'}.html`, location.href.split(/[?#]/)[0]).href;
+  shareText = z.clear
     ? `ネギれ！ケバブで5人分を${yen(z.paid)}で買って、${yen(z.saved)}値切った。称号「${title}」`
     : `ネギれ！ケバブ、${z.bought}人分しか買えなかった……`;
-  $('shareBtn').href = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+  $('shareBtn').href = `https://x.com/intent/post?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+  $('shareBtn').textContent = useShareSheet() ? '結果をシェア' : '結果をXに投稿';
   show('receipt');
   sfx(z.clear ? 'coin' : 'fail');
 }
@@ -394,6 +404,15 @@ document.querySelectorAll('.nudge').forEach((b) => b.addEventListener('click', (
 $('cards').addEventListener('click', (e) => {
   const card = e.target.closest('.card');
   if (card && !card.disabled) doCard(card.dataset.id);
+});
+$('shareBtn').addEventListener('click', async (e) => {
+  if (!useShareSheet()) return; // PCは通常のリンクとして投稿画面を開く
+  e.preventDefault();
+  try {
+    await navigator.share({ text: `${shareText}\n${shareUrl}` });
+  } catch (err) {
+    if (err.name !== 'AbortError') window.open($('shareBtn').href, '_blank', 'noopener');
+  }
 });
 $('muteBtn').addEventListener('click', () => {
   const m = toggleMute();

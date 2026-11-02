@@ -28,9 +28,20 @@ python3 -m http.server 8000
 
 URLに `?seed=123` を付けると店主の底値や札が固定されます。
 
+## Xのカード
+
+`share/` に称号ごとの共有ページとカード画像が入っています。結果を投稿すると、その称号のカードが表示されます。
+称号の名前や説明、公開URLを変えたら次のコマンドで作り直してください（Python版Playwrightが必要です）。
+
+```
+python3 tools/make-share.py
+```
+
+Xはカードを約7日キャッシュします。画像を変えても古いカードが出るときは、`BASE` の下の `VERSION` を上げて作り直してください。
+
 ## 素材
 
 - 絵と音はこのリポジトリ内で生成したもので、外部素材は使っていません
-- フォント: [Dela Gothic One](https://github.com/syakuzen/DelaGothic)、[Yusei Magic](https://github.com/tanukifont/YuseiMagic)（どちらも SIL Open Font License 1.1。全文は `fonts/` にあります）
+- フォント: [Dela Gothic One](https://github.com/syakuzen/DelaGothic)、[Yusei Magic](https://github.com/tanukifont/YuseiMagic)、[Noto Sans CJK JP](https://github.com/notofonts/noto-cjk)（「ケ」の1文字のみ）。いずれも SIL Open Font License 1.1 で、全文は `fonts/` にあります
 
 フォントはゲーム内で使う文字だけに絞っています。台詞に新しい漢字を足すと、その文字だけ端末のフォントで表示されます。

@@ -1,4 +1,6 @@
 @font-face { font-family: 'Dela Gothic One'; src: url('../fonts/DelaGothicOne-subset.woff') format('woff'); font-display: swap; }
+/* Dela Gothic One の「ケ」は「ク」と見分けにくいので、この1文字だけ別書体にする */
+@font-face { font-family: 'Dela Gothic One'; src: url('../fonts/NotoSansJP-Black-ke.woff') format('woff'); unicode-range: U+30B1; font-display: swap; }
 @font-face { font-family: 'Yusei Magic'; src: url('../fonts/YuseiMagic-subset.woff') format('woff'); font-display: swap; }
 
 :root {
