@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ネギれ！ケバブ</title>
+<meta name="description" content="予算4000円で5人分のケバブを買って帰る、値切りブラウザゲーム。">
+<meta name="theme-color" content="#0B6E78">
+<meta property="og:title" content="ネギれ！ケバブ">
+<meta property="og:description" content="予算4000円で5人分のケバブを買って帰る、値切りブラウザゲーム。">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main id="title" class="screen title">
+  <div class="title-doner" id="titleDoner" aria-hidden="true"></div>
+  <h1 class="logo"><span>ネギれ！</span><span>ケバブ</span></h1>
+  <p class="mission">予算¥4,000でケバブを5人分。<br>定価だと¥5,100。値切るしかない。</p>
+  <ol class="how">
+    <li><b>値段を出す。</b>店主の反応で底値に近いかがわかる。</li>
+    <li><b>札を切る。</b>店主によって効く札が違う。</li>
+    <li><b>怒らせない。</b>怒るほど底値は上がり、緒が切れたら出禁。</li>
+  </ol>
+  <button id="startBtn" class="btn big">値切りに行く</button>
+  <p id="bestLine" class="best" hidden></p>
+</main>
+
+<main id="game" class="screen game" hidden>
+  <header class="hud">
+    <ul id="pips" class="pips" aria-label="買えたケバブ"></ul>
+    <div class="wallet">財布 <b id="wallet">¥4,000</b></div>
+    <button id="muteBtn" class="mute" aria-pressed="false">音あり</button>
+  </header>
+  <div class="rope-row">
+    <span class="rope-label">堪忍袋の緒</span>
+    <div class="rope" role="meter" aria-label="店主の機嫌" aria-valuemin="0" aria-valuemax="100" id="ropeMeter"><i id="rope"></i></div>
+  </div>
+
+  <section class="stage" id="stage">
+    <div class="scene" id="scene"></div>
+    <div class="walk-count" id="walkCount" aria-live="assertive"></div>
+    <div class="bubble" id="bubble" aria-live="polite">
+      <span class="who" id="who"></span>
+      <span class="chip" id="chip" hidden></span>
+      <p id="line"></p>
+    </div>
+  </section>
+
+  <section class="panel" id="panel">
+    <div class="offer">
+      <label class="slider-row">
+        <span class="sr">提示する金額</span>
+        <input id="slider" type="range" step="10">
+      </label>
+      <div class="offer-row">
+        <button class="nudge" data-d="-50">-50</button>
+        <button class="nudge" data-d="-10">-10</button>
+        <button id="offerBtn" class="btn offer-btn"></button>
+        <button class="nudge" data-d="10">+10</button>
+        <button class="nudge" data-d="50">+50</button>
+      </div>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="actions">
+      <button id="walkBtn" class="btn ghost">帰るふりをする</button>
+      <button id="buyBtn" class="btn ghost"></button>
+    </div>
+  </section>
+
+  <div class="overlay" id="backOverlay" hidden>
+    <div class="sheet">
+      <h2>誰も呼び止めてくれなかった。</h2>
+      <p id="backText"></p>
+      <button id="backBtn" class="btn"></button>
+      <button id="leaveBtn" class="btn ghost dark"></button>
+    </div>
+  </div>
+
+  <div class="overlay" id="endOverlay" hidden>
+    <div class="sheet result">
+      <div class="stamp" id="stamp"></div>
+      <div class="result-art" id="resultArt"></div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultPrice" class="result-price"></p>
+      <p id="resultNote"></p>
+      <button id="nextBtn" class="btn"></button>
+    </div>
+  </div>
+</main>
+
+<main id="receipt" class="screen receipt-screen" hidden>
+  <article class="receipt">
+    <h2>屋台通り 領収書</h2>
+    <p class="r-date" id="rDate"></p>
+    <ul id="rLines" class="r-lines"></ul>
+    <dl class="r-total">
+      <div><dt>定価の合計</dt><dd id="rList"></dd></div>
+      <div><dt>支払い</dt><dd id="rPaid"></dd></div>
+      <div class="r-saved"><dt>値切った額</dt><dd id="rSaved"></dd></div>
+      <div><dt>財布の残り</dt><dd id="rLeft"></dd></div>
+    </dl>
+    <p class="r-rank-label">称号</p>
+    <p class="r-rank" id="rRank"></p>
+    <p class="r-note" id="rNote"></p>
+  </article>
+  <div class="receipt-actions">
+    <button id="againBtn" class="btn big">もう一度値切る</button>
+    <a id="shareBtn" class="btn ghost" target="_blank" rel="noopener">結果をXに投稿</a>
+  </div>
+</main>
+
+<script type="module" src="js/ui.js"></script>
+</body>
+</html>
